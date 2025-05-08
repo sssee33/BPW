@@ -1,0 +1,24 @@
+name: Update Exchange Rates
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 자정에 실행
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Fetch exchange rates
+        run: |
+          curl "https://openexchangerates.org/api/latest.json?app_id=${{ secrets.APP_ID }}" -o exchange_rates.json
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add exchange_rates.json
+          git commit -m "Update exchange rates" || echo "No changes to commit"
+          git push

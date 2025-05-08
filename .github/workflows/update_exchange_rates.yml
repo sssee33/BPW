@@ -1,8 +1,6 @@
 name: Update Exchange Rates
 
-on:
-  schedule:
-    - cron: '47 12 * * *'  # 매일 자정에 실행
+on: push
 
 jobs:
   update:

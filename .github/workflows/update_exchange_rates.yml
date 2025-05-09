@@ -3,6 +3,7 @@ name: Update Exchange Rates
 on:
   schedule:
     - cron: '0 0,12 * * *'  # 매일 00:00과 12:00 UTC에 실행
+  workflow_dispatch:
 
 jobs:
   update:
